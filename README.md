@@ -21,7 +21,7 @@
 ## Installation
 You can install it by using CocoaPods. Please add the following line to your Podfile.   
 ```
-pod 'MaterialShowcase'
+pod 'WcchimiizShowcase'
 ```
 
 ## Usage
@@ -117,17 +117,20 @@ You can define your own styles based on your app.
   showcase.aniRippleScale = 1.5 
   showcase.aniRippleColor = UIColor.white
   showcase.aniRippleAlpha = 0.2
+  // Button
+  showcase.buttonVisable = true // Bool
+  showcase.buttonRadius = 8.0
+  showcase.buttonText = "OK"
+  showcase.buttonBGColor = UIColor.white
+  showcase.buttonTextColor = UIColor.purple
 ```
 
 For more information, please take a look at [sample app](/Sample).
 
-If you have any issues or feedback, please visit [issue section](https://github.com/aromajoin/material-showcase-ios/issues).  
-Please feel free to create a pull request. 
-
 ## Third Party Bindings
 
 ### React Native
-For [React Native](https://github.com/facebook/react-native) developers, you can use this library via [its binding bridge](https://github.com/prscX/react-native-material-showcase-ios) created by [@prscX](https://github.com/prscX).
+For [React Native](https://github.com/facebook/react-native) developers, you can use this library via [its binding bridge](https://github.com/WCChimiiz/react-native-app-tour.git).
 
 
 ## License  
