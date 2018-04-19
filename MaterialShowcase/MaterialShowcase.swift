@@ -50,6 +50,7 @@ public class MaterialShowcase: UIView {
   var hiddenTargetHolderView: UIView!
   var targetRippleView: UIView!
   var targetCopyView: UIView!
+  var targetButton: UIButton!
   var instructionView: MaterialShowcaseInstructionView!
   
   // MARK: Public Properties
@@ -61,12 +62,18 @@ public class MaterialShowcase: UIView {
   // Tap zone settings
   // - false: recognize tap from all displayed showcase.
   // - true: recognize tap for targetView area only.
-  @objc public var isTapRecognizerForTagretView: Bool = false
+  @objc public var isTapRecognizerForTagretView: Bool = true
   // Target
   @objc public var shouldSetTintColor: Bool = true
   @objc public var targetTintColor: UIColor!
   @objc public var targetHolderRadius: CGFloat = 0.0
   @objc public var targetHolderColor: UIColor!
+  // Button
+  @objc public var buttonVisable: Bool = true
+  @objc public var buttonTextColor: UIColor!
+  @objc public var buttonBGColor: UIColor!
+  @objc public var buttonText: String!
+  @objc public var buttonRadius: CGFloat = 0.0
   // Text
   @objc public var primaryText: String!
   @objc public var secondaryText: String!
@@ -217,6 +224,7 @@ extension MaterialShowcase {
     // Text
     primaryText = MaterialShowcaseInstructionView.PRIMARY_DEFAULT_TEXT
     secondaryText = MaterialShowcaseInstructionView.SECONDARY_DEFAULT_TEXT
+    buttonText = MaterialShowcaseInstructionView.BUTTON_DEFAULT_TEXT
     primaryTextColor = MaterialShowcaseInstructionView.PRIMARY_TEXT_COLOR
     secondaryTextColor = MaterialShowcaseInstructionView.SECONDARY_TEXT_COLOR
     primaryTextSize = MaterialShowcaseInstructionView.PRIMARY_TEXT_SIZE
@@ -227,6 +235,12 @@ extension MaterialShowcase {
     aniRippleAlpha = ANI_RIPPLE_ALPHA
     aniRippleColor = ANI_RIPPLE_COLOR
     aniRippleScale = ANI_RIPPLE_SCALE
+    // Button
+    buttonVisable = MaterialShowcaseInstructionView.BUTTON_DEFAULT_VISABLE
+    buttonText = MaterialShowcaseInstructionView.BUTTON_DEFAULT_TEXT
+    buttonBGColor = MaterialShowcaseInstructionView.BUTTON_DEFAULT_BG_COLOR
+    buttonTextColor = MaterialShowcaseInstructionView.BUTTON_DEFAULT_TEXT_COLOR
+    buttonRadius = MaterialShowcaseInstructionView.BUTTON_DEFAULT_RADIUS
   }
   
   func startAnimations() {
@@ -268,12 +282,17 @@ extension MaterialShowcase {
     }
     
     // Disable subview interaction to let users click to general view only
-    subviews.forEach({$0.isUserInteractionEnabled = false})
+    subviews.forEach({$0.isUserInteractionEnabled = true})
     
     if isTapRecognizerForTagretView {
       //Add gesture recognizer for targetCopyView
       targetCopyView.addGestureRecognizer(tapGestureRecoganizer())
       targetCopyView.isUserInteractionEnabled = true
+      if buttonVisable {
+        targetButton = instructionView.buttonLabel
+        targetButton.addGestureRecognizer(tapGestureRecoganizer())
+        targetButton.isUserInteractionEnabled = true
+      }
     } else {
       // Add gesture recognizer for both container and its subview
       addGestureRecognizer(tapGestureRecoganizer())
@@ -384,6 +403,12 @@ extension MaterialShowcase {
     instructionView.secondaryTextColor = secondaryTextColor
     instructionView.secondaryText = secondaryText
     
+    instructionView.buttonText = buttonText
+    instructionView.buttonVisable = buttonVisable
+    instructionView.buttonTextColor = buttonTextColor
+    instructionView.buttonBGColor = buttonBGColor
+    instructionView.buttomRadius = buttonRadius
+    
     // Calculate x position
     var xPosition = LABEL_MARGIN
     
@@ -442,7 +467,7 @@ extension MaterialShowcase {
     return tapGesture
   }
   
-  @objc private func tapGestureSelector() {
+  @objc public func tapGestureSelector() {
     completeShowcase()
   }
   

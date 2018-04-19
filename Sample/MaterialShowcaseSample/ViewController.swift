@@ -17,12 +17,22 @@ class ViewController: UIViewController {
   @IBOutlet weak var tabBar: UITabBar!
   @IBOutlet weak var button: UIButton!
   @IBOutlet weak var tableView: UITableView!
-  
+    @IBOutlet weak var test: UIButton!
+    
   // Mock data for table view
   let animals = ["Dolphin", "Penguin", "Panda", "Neko", "Inu"]
   override func viewDidLoad() {
     super.viewDidLoad()
     tableView.dataSource = self
+    test.setTitleColor(UIColor.white, for: .normal)
+    test.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
+    test.backgroundColor = UIColor.black
+    test.titleLabel?.textAlignment = .left
+    
+    button.setTitleColor(UIColor.white, for: .normal)
+    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
+    button.backgroundColor = UIColor.black
+    button.titleLabel?.textAlignment = .left
   }
   
   @IBAction func showButton(_ sender: Any) {
@@ -33,6 +43,10 @@ class ViewController: UIViewController {
     showcase.shouldSetTintColor = false // It should be set to false when button uses image.
     showcase.backgroundPromptColor = UIColor.blue
     showcase.isTapRecognizerForTagretView = true
+    showcase.buttonRadius = 8
+    showcase.buttonText = "sdjlakh"
+    showcase.buttonBGColor = UIColor.white
+    showcase.buttonTextColor = UIColor.purple
     showcase.delegate = self
     showcase.backgroundViewType = .full
     showcase.show(completion: {
@@ -56,6 +70,7 @@ class ViewController: UIViewController {
   @IBAction func showBarButtonItem(_ sender: Any) {
     let showcase = MaterialShowcase()
     showcase.setTargetView(barButtonItem: searchItem)
+    showcase.buttonVisable = false
     showcase.targetTintColor = UIColor.red
     showcase.targetHolderRadius = 50
     showcase.targetHolderColor = UIColor.yellow
